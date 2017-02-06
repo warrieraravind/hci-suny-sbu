@@ -40,6 +40,9 @@ layout: default
 <p>
 	We connected the Photo resistor in series to a 10kilo-ohm resistor and measured the voltage that is read on one leg of the photo resistor. The max voltage that is supplied is 5V, since it is connected to USB. 0-5V is mapped between 0-1023 in the analogRead api that is used. This is mapped to 0-255 before doing a digitalWrite. The output is written to the 13th pin. An LED is connected on that leg, through a resistor of 1 kilo-ohm. We invert the reading that is read in the analogWrite, so that if it is dark, the LED lights and when there is light, the LED turns off.
 </p>
+<p>
+	If 'x' is the input reading for AnalogRead, then the voltage drop across the resistor R is, (x/1023) * 5 Volts. Then the current flowing through the circuit at this time is V/R = ((x/1023) * 5)/ 10 * 10^4. Now, the voltage drop across the photo resistor is (1023 - x)/1023) * 5 V. Now, since the current is the same across both the resistors, the resistance of the photo resistor is V/I. Cancelling out terms, R = ((1023 - x) / x) * 10 ^ 4 ohms.
+</p>
 
 Fritzing Sketch: </br>
 </br>
