@@ -1,0 +1,74 @@
+---
+layout: default
+---
+<strong>Assignment 2 - Part 2: Sensor reading - Problem Statement:</strong> </br>
+<ul>
+	<li>Construct a circuit with at least one sensor and at least one LED.</li>
+	<li>Use the datasheet for your sensor to understand its response characteristics.
+		<ul>
+			<li>If it's resistive (changes resistance) - see how many Ohms you get in different stages of operation.</li>
+			<li>You will benefit from picking a resistor value (or a series, parallel bunch of resistors) to help you span the entire range of the resistive sensor.</li>
+			<li>Linearize the response with a multimap if needed.</li>
+		</ul>
+	</li>
+	<li>Output the sensor value also to the serial console: Convert raw values to meaningful readings (e.g. "lux", "degrees Celsius", etc.)</li>
+	<li>Use the sensor to also drive the LED
+		<ul>
+			<li>Use map according to the characteristics of the sensor and your linearization.</li>
+			<li>Use PWM to drive the LED from totally dark to ON, corresponding with the sensor read values.</li>
+		</ul>
+	</li>
+		
+	<li>Apply a filter to condition the signal:
+		<ul>
+			<li>a hardware RC filter, for which you'd need a capacitor - calculate the cutoff frequency.</li>
+			<li>a software filter: moving average, median, IIR (Butterworth), etc.</li>
+		</ul>
+	</li>
+	<li>Document it with Fritzing (+ circuit diagram), as well as photographs, circuit diagram.</li>
+	<li>Write down the voltages, and operational ranges of your sensor</li>
+	<li>Plot the results from the sensor (after and before calibration, filtering): You can use Excel, Google Sheets, gnuplot, or anything else you are used to working with.</li>
+</ul>
+
+
+</br>
+</br>
+</br>
+</br>
+<strong>Answer:</strong> </br>
+
+<p>
+	We connected the Photo resistor in series to a 10kilo-ohm resistor and measured the voltage that is read on one leg of the photo resistor. The max voltage that is supplied is 5V, since it is connected to USB. 0-5V is mapped between 0-1023 in the analogRead api that is used. This is mapped to 0-255 before doing a digitalWrite. The output is written to the 13th pin. An LED is connected on that leg, through a resistor of 1 kilo-ohm. We invert the reading that is read in the analogWrite, so that if it is dark, the LED lights and when there is light, the LED turns off.
+</p>
+
+Fritzing Sketch: </br>
+</br>
+<img src="{{site.baseurl}}/img/sensor_reading_fritzing.png" style="width:400px;height:500px;"> </br></br>
+
+Circuit Diagram: </br>
+</br>
+<img src="{{site.baseurl}}/img/sensor_reading_circuit.jpeg" style="width:400px;height:500px;"> </br></br>
+
+
+
+Arduino Code: Running Average Filter (Smoothening) </br>
+</br>
+
+<img src="{{site.baseurl}}/img/sensor_reading_code.png" style="width:400px;height:500px;"> </br></br>
+
+
+Software Filter: Before Smoothening</br>
+<img src="{{site.baseurl}}/img/sensor_reading_not_smoothened.jpeg" style="width:500px;height:500px;"> </br></br>
+
+Software Filter: After Smoothening (Running Average)</br>
+<img src="{{site.baseurl}}/img/sensor_reading_smoothened.jpeg" style="width:500px;height:500px;"> </br></br>
+
+Resistance Graph </br>
+<img src="{{site.baseurl}}/img/sensor_reading_resistance_graph.png" style="width:500px;height:500px;"> </br></br>
+
+
+Sensor with LED </br>
+
+<img src="{{site.baseurl}}/img/sensor_reading_led_on.jpeg" style="width:500px;height:600px;">
+<img src="{{site.baseurl}}/img/sensor_reading_led_off.jpeg" style="width:500px;height:600px;"> </br></br>
+
